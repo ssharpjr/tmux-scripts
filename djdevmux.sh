@@ -30,7 +30,7 @@ PROJECT="$1"
 if [ -z "$2" ]
   then
     echo "No virtualenv specified"
-    echo "Using $1 as the virtualenv"
+    echo "Using '$1' as the virtualenv"
     VENV="$PROJECT"
   else
     VENV="$2"
@@ -49,8 +49,8 @@ TMUX_SESSION="Django-$PROJECT"
 
 # Variable test
 echo
-echo "Environmental Sanity Check"
-echo "--------------------------"
+echo "Environment Variables"
+echo "-----------------------"
 echo "PROJECT = $PROJECT"
 echo "VENV = $VENV"
 echo "WORKON_HOME = $WORKON_HOME"
@@ -62,10 +62,11 @@ echo "TMUX_SESSION = $TMUX_SESSION"
 echo "VENV_DEV_HOME = $VENV_DEV_HOME"
 echo "VENV_TEST_HOME = $VENV_TEST_HOME"
 echo
-echo "Starting tmux..."
-sleep 1
 
 # Variable Sanity Checks
+echo
+echo "Performing sanity checks..."
+sleep 1
 if [ -z "$PROJECT" ]
   then
     echo
@@ -79,6 +80,14 @@ if [ -z "$VENV" ]
     echo
     echo "No virtualenv assigned"
     echo "Please check your virtualenv name"
+    echo "Exiting"
+    exit 0
+fi
+if [ ! -d "$PROJECT_FOLDER" ]
+  then
+    echo
+    echo "Cannot locate the $PROJECT_FOLDER project folder"
+    echo "Please verify the project folder exists"
     echo "Exiting"
     exit 0
 fi
@@ -100,6 +109,9 @@ if [ ! -d "$VENV_TEST_HOME" ]
 fi
 
 # Start tmux
+echo
+echo "Starting tmux..."
+echo
 cd $PROJECT_FOLDER
 
 tmux new-session -d -s $TMUX_SESSION  -n "$DEV_SESSION"
