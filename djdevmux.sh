@@ -66,7 +66,6 @@ echo
 # Variable Sanity Checks
 echo
 echo "Performing sanity checks..."
-sleep 1
 if [ -z "$PROJECT" ]
   then
     echo
@@ -121,6 +120,6 @@ tmux new-window -t $TMUX_SESSION:2 -n "$TEST_SESSION"
 tmux send-keys -t "$TMUX_SESSION:2" C-z "workon $TEST_SESSION; clear" Enter
 tmux send-keys -t "$TMUX_SESSION:1" C-z "workon $DEV_SESSION; clear" Enter
 
-tmux select-window -t $TMUX_SESSION:1
+#tmux select-window -t $TMUX_SESSION:1
 
 tmux -2 attach-session -t $TMUX_SESSION
